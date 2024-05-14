@@ -11,7 +11,25 @@ const useAuthState_ = () => {
     setUserToken(response.data.token);
     localStorage.setItem("userToken", response.data.token);
   };
-  const logout = async () => {};
+  const logout = async () => {
+    await axios
+      .post(
+        "http://localhost:8000/logout",
+        {},
+        {
+          headers: {
+            Authorization: `Token ${userToken}`,
+          },
+        }
+      )
+      .then((res) => {
+        setUserToken(null);
+        localStorage.removeItem("userToken");
+      })
+      .catch((error) => {
+        console.log("error in logout");
+      });
+  };
   return {
     userToken,
     setUserToken,
