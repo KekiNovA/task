@@ -4,6 +4,7 @@ import { Form, FormikProvider, useFormik } from "formik";
 import axios from "axios";
 import { useAuthState } from "../state/useAuthState";
 import toast from "react-hot-toast";
+import { API_URL } from "../config";
 
 const AddTaskModal = ({ taskData }: any) => {
   const { userToken, fetchTasks } = useAuthState();
@@ -25,7 +26,7 @@ const AddTaskModal = ({ taskData }: any) => {
         setSubmitting(true);
         if (taskData?.id) {
           await axios
-            .put("http://localhost:8000/tasks/" + taskData?.id + "/", values, {
+            .put(`${API_URL}/tasks/` + taskData?.id + "/", values, {
               headers: {
                 Authorization: `Token ${userToken}`,
               },
@@ -42,7 +43,7 @@ const AddTaskModal = ({ taskData }: any) => {
             });
         } else {
           await axios
-            .post("http://localhost:8000/tasks/", values, {
+            .post(`${API_URL}/tasks/`, values, {
               headers: {
                 Authorization: `Token ${userToken}`,
               },

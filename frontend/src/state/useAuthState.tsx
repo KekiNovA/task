@@ -1,6 +1,7 @@
 import { useState } from "react";
 import constate from "constate";
 import axios from "axios";
+import { API_URL } from "../config";
 
 const useAuthState_ = () => {
   const [userToken, setUserToken] = useState<any | null>(
@@ -8,14 +9,14 @@ const useAuthState_ = () => {
   );
   const [tasks, setTasks] = useState<any>(null);
   const login = async (data: any) => {
-    const response = await axios.post("http://localhost:8000/login", data);
+    const response = await axios.post(`${API_URL}/login`, data);
     setUserToken(response.data.token);
     localStorage.setItem("userToken", response.data.token);
   };
   const logout = async () => {
     await axios
       .post(
-        "http://localhost:8000/logout",
+        `${API_URL}/logout`,
         {},
         {
           headers: {
@@ -34,7 +35,7 @@ const useAuthState_ = () => {
 
   const fetchTasks = async () => {
     await axios
-      .get("http://localhost:8000/tasks/", {
+      .get(`${API_URL}/tasks/`, {
         headers: {
           Authorization: `Token ${userToken}`,
         },

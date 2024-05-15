@@ -3,6 +3,7 @@ import AddTaskModal from "./AddTaskModal";
 import { useAuthState } from "../state/useAuthState";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { API_URL } from "../config";
 
 const TaskList = () => {
   const { userToken, tasks, fetchTasks } = useAuthState();
@@ -10,7 +11,7 @@ const TaskList = () => {
   const [taskData, setTaskData] = useState<any>(tasks);
   const handleDelete = async (id: string) => {
     await axios
-      .delete("http://localhost:8000/tasks/" + id + "/", {
+      .delete(`${API_URL}/tasks/` + id + "/", {
         headers: {
           Authorization: `Token ${userToken}`,
         },
@@ -39,7 +40,7 @@ const TaskList = () => {
             href="#"
             data-bs-toggle="modal"
             data-bs-target="#new-task"
-            className="btn btn-sm btn-primary"
+            className="btn btn-primary mb-3"
           >
             New Task
           </a>
