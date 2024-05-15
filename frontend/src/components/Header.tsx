@@ -1,5 +1,6 @@
 import React from "react";
 import { useAuthState } from "../state/useAuthState";
+import toast from "react-hot-toast";
 
 function Header() {
   const { logout } = useAuthState();
@@ -10,8 +11,9 @@ function Header() {
           <div className="tabs">
             <button
               className="btn btn-link"
-              onClick={() => {
-                logout();
+              onClick={async () => {
+                await logout();
+                toast.success("Logout successullfy");
               }}
             >
               Logout

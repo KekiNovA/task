@@ -6,6 +6,7 @@ const useAuthState_ = () => {
   const [userToken, setUserToken] = useState<any | null>(
     localStorage.getItem("userToken") || null
   );
+  const [tasks, setTasks] = useState<any>(null);
   const login = async (data: any) => {
     const response = await axios.post("http://localhost:8000/login", data);
     setUserToken(response.data.token);
@@ -30,11 +31,29 @@ const useAuthState_ = () => {
         console.log("error in logout");
       });
   };
+
+  const fetchTasks = async () => {
+    await axios
+      .get("http://localhost:8000/tasks/", {
+        headers: {
+          Authorization: `Token ${userToken}`,
+        },
+      })
+      .then((res) => {
+        setTasks(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return {
     userToken,
     setUserToken,
     login,
     logout,
+    tasks,
+    setTasks,
+    fetchTasks,
   };
 };
 

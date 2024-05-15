@@ -15,7 +15,7 @@ class TaskViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         user = self.request.user
         if user.is_authenticated:
-            return self.queryset.filter(created_by=user)
+            return self.queryset.filter(created_by=user).order_by('-created_at')
         return Task.objects.none()
 
     def list(self, request):

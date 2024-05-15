@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuthState } from "../state/useAuthState";
 import * as Yup from "yup";
 import { Form, FormikProvider, useFormik } from "formik";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -25,12 +26,13 @@ const Login = () => {
         setSubmitting(true);
         await login(values)
           .then((res) => {
+            toast.success("Logged in successfully");
             setSubmitting(false);
             resetForm();
             navigate("/");
           })
           .catch((error) => {
-            alert(error?.response?.data?.errors?.error[0]);
+            toast.error(error?.response?.data?.errors?.error[0]);
             setSubmitting(false);
             resetForm();
           });

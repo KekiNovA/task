@@ -4,6 +4,7 @@ import { useAuthState } from "../state/useAuthState";
 import * as Yup from "yup";
 import { Form, FormikProvider, useFormik } from "formik";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -57,13 +58,13 @@ const SignUp = () => {
           .then((res) => {
             console.log(res);
             resetForm();
-            alert("SignUp completed");
+            toast.success("SignUp completed");
             navigate("/");
           })
           .catch((error) => {
             console.log(error);
             setSubmitting(false);
-            alert(error?.response?.data?.username);
+            toast.error(error?.response?.data?.username);
           })
           .finally(() => {
             setSubmitting(false);
