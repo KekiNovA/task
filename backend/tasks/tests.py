@@ -54,7 +54,6 @@ class TaskViewSetTests(APITestCase):
     def test_update_task(self):
         """Test updating an existing task."""
         task = Task.objects.create(created_by=self.user, **self.task_data)
-        print(task)
         url = reverse('task-detail', kwargs={'pk': task.pk})
         update_data = {'title': 'Updated Task Title'}
         response = self.client.put(url, update_data)
