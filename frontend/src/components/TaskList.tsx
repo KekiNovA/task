@@ -2,11 +2,9 @@ import { useEffect, useState } from "react";
 import AddTaskModal from "./AddTaskModal";
 import { useAuthState } from "../state/useAuthState";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 const TaskList = () => {
-  const navigate = useNavigate();
   const { userToken, tasks, fetchTasks } = useAuthState();
   const [items, setItems] = useState(tasks);
   const [taskData, setTaskData] = useState<any>(tasks);
@@ -19,7 +17,7 @@ const TaskList = () => {
       })
       .then((res) => {
         toast.success("Task deleted successfully");
-        navigate(0);
+        fetchTasks();
       })
       .catch((error) => {
         toast.error("Something went wrong");
