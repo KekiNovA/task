@@ -3,11 +3,9 @@ import * as Yup from "yup";
 import { Form, FormikProvider, useFormik } from "formik";
 import axios from "axios";
 import { useAuthState } from "../state/useAuthState";
-import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 const AddTaskModal = ({ taskData }: any) => {
-  const navigate = useNavigate();
   const { userToken, fetchTasks } = useAuthState();
   const modalRef = useRef<HTMLDivElement | null>(null);
   const [submitting, setSubmitting] = useState<boolean>(false);
